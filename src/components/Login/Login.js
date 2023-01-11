@@ -12,21 +12,27 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
-  }, [enteredEmail, enteredPassword]) //setEmailIsValid를 넣지 않은 이유는 useState는 React에서 절대 변경되지 않도록 해서 넣지 않는다.
+    const identifier = setTimeout(()=>{
+       setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    },500);
+      
+    return () =>{
+      clearTimeout(identifier);
+      //처음 랜더링될때는 출력안되고 다시 sideEffect가 출력될때 출력된후에 setTimeout함수가 실행된다.
+    };
+  }, [enteredEmail, enteredPassword]) 
+  //setEmailIsValid를 넣지 않은 이유는 useState는 React에서 절대 변경되지 않도록 해서 넣지 않는다.
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
 
-    
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
 
-   
   };
 
   const validateEmailHandler = () => {
