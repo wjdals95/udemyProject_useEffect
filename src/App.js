@@ -13,6 +13,7 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+  //의존성이 없으므로 처음 랜더링 한 후에 한번더 실행되고나서는 변한게 없으므로 다시 랜더링되지 않는다.
 
   const loginHandler = (email, password) => {
     // We should of course check email and password
@@ -22,6 +23,7 @@ function App() {
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn')
     setIsLoggedIn(false);
   };
 
